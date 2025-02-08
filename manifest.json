@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "Claude Chat JSON Interceptor",
+    "version": "1.0",
+    "description": "Intercepts and displays JSON content from Claude chat API",
+    "permissions": [
+      "webRequest",
+      "webRequestBlocking",
+      "storage",
+      "tabs",
+      "*://*.claude.ai/*",
+      "*://api.github.com/*"
+    ],
+    "options_ui": {
+      "page": "options.html",
+      "open_in_tab": false
+    },
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+    },
+    "browser_action": {
+      "default_popup": "popup.html"
+    }
+  }
