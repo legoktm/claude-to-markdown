@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 const CLAUDE_URL_PATTERN = /^https:\/\/claude\.ai\/api\/organizations\/[\w-]+\/chat_conversations\/[\w-]+\?tree=True.*?/;
 
 chrome.webRequest.onBeforeRequest.addListener(

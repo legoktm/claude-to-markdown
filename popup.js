@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 document.addEventListener('DOMContentLoaded', function() {
     const title = document.getElementById('jsonTitle');
     const textArea = document.getElementById('jsonContent');

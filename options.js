@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 document.addEventListener('DOMContentLoaded', function() {
     const tokenInput = document.getElementById('github-token');
     const saveButton = document.getElementById('save');

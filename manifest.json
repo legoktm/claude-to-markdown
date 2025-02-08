@@ -3,6 +3,7 @@
     "name": "Claude to Markdown",
     "version": "2025.2.7",
     "description": "Exports Claude chat conversations as Markdown",
+    "homepage_url": "https://legoktm.com/view/Claude_to_Markdown",
     "permissions": [
       "webRequest",
       "webRequestBlocking",
