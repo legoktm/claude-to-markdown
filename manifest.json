@@ -20,6 +20,14 @@
       "persistent": true
     },
     "browser_action": {
-      "default_popup": "popup.html"
+      "default_popup": "popup.html",
+      "default_icon": "icons/icon.png",
+      "theme_icons": [
+            {
+                "light": "icons/icon-light.png",
+                "dark": "icons/icon.png",
+                "size": 32
+            }
+        ]
     }
   }
