@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     saveButton.addEventListener('click', function() {
       const token = tokenInput.value.trim();
 
-      if (!token) {
-        showStatus('Please enter a token', true);
-        return;
-      }
-
       chrome.storage.local.set({
         githubToken: token
       }, function() {
