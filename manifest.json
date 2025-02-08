@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Claude Chat JSON Interceptor",
-    "version": "1.0",
-    "description": "Intercepts and displays JSON content from Claude chat API",
+    "name": "Claude to Markdown",
+    "version": "2025.02.07",
+    "description": "Exports Claude chat conversations as Markdown",
     "permissions": [
       "webRequest",
       "webRequestBlocking",

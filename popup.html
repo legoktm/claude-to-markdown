@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8"/>
   <style>
     body {
       width: 600px;
       padding: 15px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    #jsonTitle {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
     #jsonContent {
       width: 100%;
@@ -84,7 +92,7 @@
 </head>
 <body>
   <div class="header">
-    <h3>Claude Chat JSON Content</h3>
+    <h3>Claude → Markdown</h3>
     <div class="button-container">
       <button id="refreshButton" class="button">Refresh Page</button>
       <button id="gistButton" class="button" style="display: none">Create Gist</button>
@@ -96,9 +104,10 @@
       </button>
     </div>
   </div>
-  <div class="timestamp" id="timestamp"></div>
   <div id="status" class="status"></div>
+  <input type="text" id="jsonTitle">
   <textarea id="jsonContent" readonly></textarea>
+  <div class="timestamp" id="timestamp"></div>
   <script src="popup.js"></script>
 </body>
 </html>
