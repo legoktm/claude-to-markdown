@@ -116,7 +116,6 @@ function buildMarkdown(parsed) {
     const bits = [];
     bits.push(`# ${parsed.name}`);
     parsed.chat_messages.forEach((message) => {
-        console.log({ message });
         bits.push(
         `**${message.sender}** (${new Date(message.created_at).toLocaleString(
             "en-US",
