@@ -27,6 +27,6 @@ The last Claude conversation you loaded is stored locally on your browser solely
 
 Claude to Markdown is released under the Apache 2.0 license, see COPYING for more details.
 
-The [original concept and code](https://observablehq.com/@simonw/convert-claude-json-to-markdown) was developed by Simon Willison and Kunal Mehta packaged it into a WebExtension (using Claude, of course).
+Simon Willison developed the [original concept and code](https://observablehq.com/@simonw/convert-claude-json-to-markdown) and Kunal Mehta packaged it into a WebExtension (using Claude, of course).
 
 The extension is not affiliated with nor endorsed by Anthropic.
