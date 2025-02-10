@@ -4,6 +4,10 @@
     "version": "2025.2.10",
     "description": "Exports Claude chat conversations as Markdown",
     "homepage_url": "https://legoktm.com/view/Claude_to_Markdown",
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "{518f7e4f-a2c6-4587-af34-e06f3dbbf523}"
+    },
     "permissions": [
       "webRequest",
       "webRequestBlocking",
@@ -36,3 +40,4 @@
         ]
     }
   }
+}
