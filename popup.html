@@ -9,7 +9,7 @@
     <h3>Claude → Markdown</h3>
     <div class="button-container">
       <button id="refreshButton" class="button">Refresh Page</button>
-      <button id="gistButton" class="button" style="display: none">Create Gist</button>
+      <button id="gistButton" class="button hide">Create Gist</button>
       <button id="settingsButton" class="button" title="Configure GitHub Token">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"></circle>
@@ -18,7 +18,7 @@
       </button>
     </div>
   </div>
-  <div id="status" class="status"></div>
+  <div id="status" class="hide"></div>
   <input type="text" id="jsonTitle">
   <textarea id="jsonContent" readonly></textarea>
   <div class="timestamp" id="timestamp"></div>

@@ -81,21 +81,26 @@ body {
   height: 16px;
 }
 
-.status {
+#status {
   margin-top: 10px;
   padding: 8px;
   border-radius: 4px;
-  display: none;
 }
 
-.status.success {
+#status.success {
   background-color: #d4edda;
   color: #155724;
+}
+
+#status.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.show {
   display: block;
 }
 
-.status.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  display: block;
+.hide {
+  display: none;
 }

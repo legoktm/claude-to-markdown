@@ -32,7 +32,6 @@ input[type="text"] {
 #status {
   margin-top: 1em;
   padding: 0.5em;
-  display: none;
 }
 
 #status.success {
@@ -43,4 +42,12 @@ input[type="text"] {
 #status.error {
   background-color: #f8d7da;
   color: #721c24;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }

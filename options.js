@@ -13,10 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showStatus(message, isError = false) {
       status.textContent = message;
-      status.className = isError ? 'error' : 'success';
-      status.style.display = 'block';
+      status.className = `show ${isError ? 'error' : 'success'}`;
       setTimeout(() => {
-        status.style.display = 'none';
+        status.className = 'hide';
       }, 3000);
     }
 

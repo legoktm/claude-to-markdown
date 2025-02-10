@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showStatus(message, isError = false) {
       statusDiv.textContent = message;
-      statusDiv.className = `status ${isError ? 'error' : 'success'}`;
+      statusDiv.className = `show ${isError ? 'error' : 'success'}`;
       setTimeout(() => {
-        statusDiv.className = 'status';
+        statusDiv.className = 'hide';
       }, 5000);
     }
 
@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
     chrome.storage.local.get(['lastIntercepted', 'githubToken'], function(data) {
       updateContent(data);
       if (data.githubToken) {
-        gistButton.style.display = 'block';
+        gistButton.classList.add('show');
+        gistButton.classList.remove('hide');
       }
     });
 
@@ -66,7 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
         updateContent({ lastIntercepted: changes.lastIntercepted.newValue });
       }
       if (changes.githubToken) {
-        gistButton.style.display = changes.githubToken.newValue ? 'block' : 'none';
+        if (changes.githubToken.newValue) {
+          gistButton.classList.add('show');
+          gistButton.classList.remove('hide');
+        } else {
+          gistButton.classList.remove('show');
+          gistButton.classList.add('hide');
+        }
       }
     });
 
