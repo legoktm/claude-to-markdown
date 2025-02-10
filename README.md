@@ -2,6 +2,8 @@
 
 A WebExtension to easily export [Claude](https://claude.ai/) conversation transcripts to Markdown and, optionally, save them as a [GitHub Gist](https://gist.github.com/).
 
+Install it as a [Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/claude-to-markdown/)!
+
 For example, here's the conversation used to create this extension: <https://gist.github.com/legoktm/63f134c6d27308d69135cd987a7d026c>.
 
 ## How it works
