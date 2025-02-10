@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Claude to Markdown",
     "version": "2025.2.7",
     "description": "Exports Claude chat conversations as Markdown",
@@ -7,21 +7,24 @@
     "permissions": [
       "webRequest",
       "webRequestBlocking",
+      "webRequestFilterResponse",
       "storage",
-      "tabs",
-      "*://*.claude.ai/*",
-      "*://api.github.com/*"
+      "tabs"
+    ],
+    "host_permissions": [
+      "*://*.claude.ai/*"
     ],
     "options_ui": {
       "page": "options.html",
       "open_in_tab": false
     },
-    "content_security_policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; font-src 'self'; object-src 'none'; media-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'",
-    "background": {
-      "scripts": ["background.js"],
-      "persistent": true
+    "content_security_policy": {
+      "extension_pages": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://api.github.com; font-src 'self'; object-src 'none'; media-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'"
     },
-    "browser_action": {
+    "background": {
+      "scripts": ["background.js"]
+    },
+    "action": {
       "default_popup": "popup.html",
       "default_icon": "icons/icon.png",
       "theme_icons": [
