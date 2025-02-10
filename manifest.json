@@ -8,6 +8,7 @@
       "gecko": {
         "id": "{518f7e4f-a2c6-4587-af34-e06f3dbbf523}",
         "strict_min_version": "109.0"
+      }
     },
     "permissions": [
       "webRequest",
@@ -41,4 +42,3 @@
         ]
     }
   }
-}
