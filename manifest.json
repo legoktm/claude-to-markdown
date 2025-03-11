@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Claude to Markdown",
-    "version": "2025.2.11",
+    "version": "2025.3.11",
     "description": "Exports Claude chat conversations as Markdown",
     "homepage_url": "https://legoktm.com/view/Claude_to_Markdown",
     "browser_specific_settings": {
