@@ -7,15 +7,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const gistButton = document.getElementById('gistButton');
     const settingsButton = document.getElementById('settingsButton');
     const statusDiv = document.getElementById('status');
+    const claudeIdDiv = document.getElementById('claude-id');
 
-    function updateContent(data) {
+    async function updateContent(data) {
       if (data.lastIntercepted) {
         title.value = data.lastIntercepted.content.name;
         textArea.value = buildMarkdown(data.lastIntercepted.content);
         timestampDiv.textContent = `Last updated: ${new Date(data.lastIntercepted.timestamp).toLocaleString()}`;
+        claudeIdDiv.textContent = data.lastIntercepted.content.uuid;
+        if (await getGistId(data.lastIntercepted.content.uuid)) {
+          gistButton.textContent = 'Update Gist';
+        } else {
+          gistButton.textContent = 'Create Gist';
+        }
       } else {
         textArea.value = 'No content intercepted yet.';
         timestampDiv.textContent = '';
+        claudeIdDiv.textContent = '';
+        gistButton.textContent = 'Create Gist';
       }
     }
 
@@ -27,9 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 5000);
     }
 
-    async function createGist(name, content, token) {
-      const response = await fetch('https://api.github.com/gists', {
-        method: 'POST',
+    async function createGist(claudeId, gistId, name, content, token) {
+      let method = 'POST';
+      let url = 'https://api.github.com/gists';
+      if (gistId) {
+        url = `https://api.github.com/gists/${gistId}`;
+        method = 'PATCH';
+      }
+      const response = await fetch(url, {
+        method: method,
         headers: {
           'Authorization': `token ${token}`,
           'Content-Type': 'application/json',
@@ -38,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
           description: name,
           public: false,
           files: {
-            [`claude_chat_${new Date().toISOString()}.md`]: {
+            [`claude_chat_${claudeId}.md`]: {
               content: content,
             }
           }
@@ -52,9 +67,28 @@ document.addEventListener('DOMContentLoaded', function() {
       return await response.json();
     }
 
+    async function storeGistId(claudeId, gistId) {
+      const item = {
+        value: gistId,
+        expiry: Date.now() + (30 * 24 * 60 * 60 * 1000) // 30 days
+      };
+      await chrome.storage.local.set({ [`gist-${claudeId}`]: item });
+    }
+
+    async function getGistId(claudeId) {
+      const key = `gist-${claudeId}`;
+      const data = await chrome.storage.local.get(key);
+
+      if (data[key]) {
+        return data[key].value;
+      } else {
+        return null;
+      }
+    }
+
     // Load initial content and check for GitHub token
-    chrome.storage.local.get(['lastIntercepted', 'githubToken'], function(data) {
-      updateContent(data);
+    chrome.storage.local.get(['lastIntercepted', 'githubToken'], async function(data) {
+      await updateContent(data);
       if (data.githubToken) {
         gistButton.classList.add('show');
         gistButton.classList.remove('hide');
@@ -62,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Listen for storage changes
-    chrome.storage.onChanged.addListener(function(changes, namespace) {
+    chrome.storage.onChanged.addListener(async function(changes, namespace) {
       if (changes.lastIntercepted) {
-        updateContent({ lastIntercepted: changes.lastIntercepted.newValue });
+        await updateContent({ lastIntercepted: changes.lastIntercepted.newValue });
       }
       if (changes.githubToken) {
         if (changes.githubToken.newValue) {
@@ -105,8 +139,16 @@ document.addEventListener('DOMContentLoaded', function() {
           throw new Error('GitHub token not configured');
         }
 
-        const gistData = await createGist(title.value, textArea.value, data.githubToken);
-        showStatus(`Gist created successfully! URL: ${gistData.html_url}`);
+        const gistId = await getGistId(claudeIdDiv.textContent);
+        const gistData = await createGist(
+          claudeIdDiv.textContent,
+          gistId,
+          title.value,
+          textArea.value,
+          data.githubToken
+        );
+        await storeGistId(claudeIdDiv.textContent, gistData.id);
+        showStatus(`Gist ${gistId ? 'updated' : 'created'} successfully! URL: ${gistData.html_url}`);
         chrome.tabs.create({ url: gistData.html_url });
       } catch (error) {
         showStatus(error.message, true);

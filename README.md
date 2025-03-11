@@ -21,7 +21,12 @@ Markdown as a Gist.
 
 Claude to Markdown does not transmit your data to myself nor any third-party service. The only exception is if you explicitly configure and use the GitHub integration, in which case the extension will communicate directly with GitHub.
 
-The last Claude conversation you loaded is stored locally on your browser solely so it can be displayed back to you.
+The following data is stored locally on your browser:
+
+* The last Claude conversation you loaded solely so it can be displayed back to you.
+  It will be replaced when you load a different conversation.
+* If you use the GitHub integration, a mapping of the Claude chat UUID and
+  Gist URL will be stored for 30 days, so the existing Gist can be updated.
 
 ## License and credit
 
