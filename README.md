@@ -1,4 +1,5 @@
-# Claude to Markdown
+_This project is no longer maintained; I recommend using a self-hosted LLM if possible._
+# Claude to Markdown (obsolete)
 
 A WebExtension to easily export [Claude](https://claude.ai/) conversation transcripts to Markdown and, optionally, save them as a [GitHub Gist](https://gist.github.com/).
 
