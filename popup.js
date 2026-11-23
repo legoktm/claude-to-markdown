@@ -178,7 +178,10 @@ function buildMarkdown(parsed) {
         )})`
         );
         message.content.forEach((content) => {
-        if (content.type == "tool_use") {
+        if (content.type == "thinking") {
+            // Skip internal reasoning blocks — not part of the visible conversation.
+            return;
+        } else if (content.type == "tool_use") {
             if (content.name == "repl") {
             bits.push(
                 "**Analysis**\n```" +
@@ -202,24 +205,40 @@ function buildMarkdown(parsed) {
                 );
             }
             }
+            // Other tool_use types (web_search, web_fetch, etc.) are silently skipped —
+            // their results are tool infrastructure, not conversation content.
         } else if (content.type == "tool_result") {
-            if (content.name != "artifacts") {
-            let logs = JSON.parse(content.content[0].text).logs;
-            bits.push(
+            if (content.name == "repl") {
+            // Legacy analysis tool: result is JSON with a .logs array.
+            try {
+                let logs = JSON.parse(content.content[0].text).logs;
+                bits.push(
                 `**Result**\n<pre style="white-space: pre-wrap">\n${logs.join(
-                "\n"
+                    "\n"
                 )}\n</pre>`
+                );
+            } catch (e) {
+                // Ignore malformed repl results rather than crashing.
+            }
+            }
+            // All other tool results (web_search, web_fetch, artifacts, etc.) are skipped —
+            // they are raw data consumed by the model, not readable conversation text.
+        } else if (content.type == "text") {
+            if (content.text && content.text.trim()) {
+            bits.push(
+                replaceArtifactTags(
+                content.text.replace(/<\/antArtifact>/g, "\n```")
+                )
             );
             }
         } else {
+            // Unknown content type: surface it only if it carries a text field.
             if (content.text) {
             bits.push(
                 replaceArtifactTags(
                 content.text.replace(/<\/antArtifact>/g, "\n```")
                 )
             );
-            } else {
-            bits.push(JSON.stringify(content));
             }
         }
         });

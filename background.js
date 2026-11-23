@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-const CLAUDE_URL_PATTERN = /^https:\/\/claude\.ai\/api\/organizations\/[\w-]+\/chat_conversations\/[\w-]+\?tree=True.*?/;
+
+// Match only individual conversation endpoints (UUID path segment), not the /v2 listing.
+// The ?tree=True parameter requirement was removed because Anthropic may change query params;
+// a UUID-formatted path segment is sufficient to identify the right endpoint.
+const CLAUDE_URL_PATTERN = /^https:\/\/claude\.ai\/api\/organizations\/[\w-]+\/chat_conversations\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
 chrome.webRequest.onBeforeRequest.addListener(
   function(details) {
